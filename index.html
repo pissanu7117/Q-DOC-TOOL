@@ -1,0 +1,291 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta name="theme-color" content="#0868db"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="default">
+<title>Q DOC TOOLS</title>
+<meta name="apple-mobile-web-app-title" content="Q DOC TOOLS">
+<meta name="application-name" content="Q DOC TOOLS">
+<meta name="description" content="Q DOC TOOLS สแกนเอกสาร ปรับมุม บันทึกและแชร์ JPG PDF">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/png" href="icon-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<style>
+:root{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Tahoma,sans-serif;color:#102a51;background:#eaf3ff}*{box-sizing:border-box}body{margin:0;min-height:100vh}button,input{font:inherit}button{cursor:pointer;border:0}.app{max-width:600px;margin:0 auto;min-height:100vh;background:#f3f8ff;box-shadow:0 0 30px #25588818}.top{background:linear-gradient(130deg,#0751c7,#129af5);color:white;padding:28px 20px 24px;border-radius:0 0 30px 30px}.brand{display:flex;align-items:center;gap:14px;font-size:26px;font-weight:800;line-height:1.1}.brand-icon{font-size:38px}.sub{margin:10px 0 0;font-size:14px;opacity:.9}.main{padding:18px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.tile{background:white;border-radius:19px;box-shadow:0 4px 16px #1260be14;padding:19px 11px;min-height:112px;color:#18365e;text-align:center;border:1px solid #e8eef8}.tile .emoji{font-size:36px;display:block;margin-bottom:8px}.tile b{display:block;font-size:15px}.tile small{display:block;color:#67819e;font-size:12px;margin-top:3px}.panel{background:white;border-radius:22px;box-shadow:0 5px 20px #1353ad13;padding:17px;margin-top:16px}.panel h2{font-size:17px;margin:0 0 12px}.muted{color:#67819e;font-size:13px}.list{display:flex;gap:10px;align-items:center;justify-content:space-between;padding:9px 0;border-top:1px solid #eef3fa}.list:first-of-type{border-top:0}.primary{background:#0878ea;color:white;border-radius:12px;padding:12px 15px;font-weight:700}.secondary{background:#e9f2ff;color:#0767d1;border-radius:12px;padding:11px 14px;font-weight:700}.danger{background:#fff0f0;color:#d33;border-radius:10px;padding:9px 11px}.actions{display:flex;gap:8px;flex-wrap:wrap;align-items:center}.actions>button{flex:1;min-width:110px}.hide{display:none!important}.preview-wrap{position:relative;background:#15243b;border-radius:16px;overflow:hidden;touch-action:none;line-height:0}.preview-wrap canvas{width:100%;height:auto;display:block;touch-action:none}.hint{font-size:13px;color:#496487;line-height:1.6;margin:12px 0}.modes{display:flex;gap:7px;flex-wrap:wrap;margin:14px 0}.mode{border:1px solid #cde1f9;color:#35649d;background:#f3f8ff;padding:9px 12px;border-radius:12px}.mode.active{background:#086dd7;color:white;border-color:#086dd7}.thumbs{display:flex;gap:8px;overflow:auto;padding:5px 0}.thumb{position:relative;flex:none;background:#e4edf9;border:2px solid transparent;border-radius:9px;overflow:hidden}.thumb.active{border-color:#0878ea}.thumb img{width:69px;height:91px;object-fit:contain;display:block}.thumb span{position:absolute;bottom:2px;right:3px;background:#10315eb5;color:white;font-size:11px;padding:1px 4px;border-radius:4px}.status{font-size:13px;color:#416991;min-height:20px;margin-top:8px}.badge{display:inline-block;background:#e0fff0;color:#118a53;border-radius:99px;padding:6px 10px;font-size:12px;font-weight:700}.footer{padding:16px 0 22px;text-align:center;color:#7792b2;font-size:12px}.loading{opacity:.55;pointer-events:none}
+
+.camera-box{position:relative;background:#080e17;border-radius:16px;overflow:hidden;line-height:0;min-height:260px;display:flex;align-items:center;justify-content:center}
+.camera-box video{width:100%;height:auto;max-height:66vh;object-fit:contain;display:block}
+.camera-box canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.live-status{border-radius:10px;padding:10px 12px;background:#fff5d7;color:#885800;font-size:14px;margin:10px 0;font-weight:600}
+.live-status.found{background:#e1f9e9;color:#08723c}
+.cam-controls{display:flex;gap:9px;align-items:center;justify-content:center;margin-top:12px}
+.cam-controls .shutter{min-width:95px;min-height:65px;border-radius:50px;font-size:20px}
+.camera-box{isolation:isolate}.camera-box:after{content:"";position:absolute;left:0;right:0;top:0;height:2px;background:linear-gradient(90deg,transparent,#53efac,transparent);opacity:.75;box-shadow:0 0 18px #53efac80;animation:scanbeam 3s ease-in-out infinite;pointer-events:none}@keyframes scanbeam{0%,100%{top:12%;opacity:.2}50%{top:88%;opacity:.75}}
+@media(prefers-reduced-motion:reduce){.camera-box:after{animation:none;display:none}}
+
+/* Portrait camera redesign: comfortable one-hand iPhone scanning layout */
+.top{padding:18px 20px 19px;border-radius:0 0 25px 25px}.brand{font-size:23px}.brand-icon{font-size:30px}.main{padding:12px 14px 22px}
+.camera-screen{background:linear-gradient(#f2f8ff,#ecf5ff);border-radius:24px;padding:10px 0 6px}
+.camera-heading{display:flex;gap:12px;align-items:center;padding:5px 4px 13px}
+.camera-heading>div{display:flex;flex:1;flex-direction:column;gap:2px}.camera-heading strong{font-size:19px;color:#11366d}.camera-heading small{font-size:11px;color:#7992b1}
+.back-btn{height:39px;width:39px;border-radius:14px;background:#fff;color:#0867d5;font-size:35px;line-height:30px;box-shadow:0 2px 9px #143c7a14}
+.live-chip{font-size:11px;color:#178349;background:#e4f9ec;padding:8px;border-radius:99px;font-weight:800}
+.camera-box{width:100%;aspect-ratio:3/4;min-height:0;max-height:min(62dvh,640px);border:5px solid white;border-radius:22px;box-shadow:0 5px 17px #164b8c2c}
+.camera-box video{width:100%;height:100%;max-height:none;object-fit:contain}
+.camera-box canvas{width:100%;height:100%;z-index:1}
+.live-topbar{position:absolute;inset:13px 12px auto;z-index:2;display:flex;justify-content:space-between;color:#fff;font-size:12px;line-height:1.4;pointer-events:none}
+.live-topbar span{background:#0d233c9c;border-radius:99px;padding:6px 10px}
+.camera-bottom-status{position:absolute;z-index:2;bottom:13px;left:12px;right:12px;line-height:1.4;text-align:center;background:#13263cbd;color:white;font-size:12px;border-radius:25px;padding:10px 8px;pointer-events:none}
+.camera-bottom-status.found{background:#063e2dc9}
+.mode-row{display:flex;gap:6px;overflow:auto;white-space:nowrap;padding:12px 1px 3px;scrollbar-width:none}.mode-row::-webkit-scrollbar{display:none}
+.cam-mode{flex:1;background:white;border:1px solid #dfeaf8;border-radius:13px;color:#496785;font-size:12px;font-weight:700;padding:10px 6px;white-space:nowrap}
+.cam-mode.active{color:white;background:#0877ed;border-color:#0877ed}
+.capture-row{display:grid;grid-template-columns:1fr 1.2fr 1fr;gap:10px;align-items:center;background:white;border-radius:22px;padding:10px 12px;margin-top:9px;box-shadow:0 4px 18px #144d9b10}
+.capture-side{background:transparent;display:flex;align-items:center;flex-direction:column;gap:3px;color:#1e4169;font-size:12px;min-height:65px;justify-content:center}
+.capture-icon{font-size:29px;line-height:1}
+.capture-shutter{width:79px;height:79px;border-radius:50%;background:linear-gradient(150deg,#168ffe,#0349ce);color:white;margin:auto;border:5px solid white;outline:4px solid #9ecaff;box-shadow:0 5px 10px #1c7de72b;font-size:29px;display:grid;place-items:center}
+.capture-shutter:active{transform:scale(.96)}.camera-help{text-align:center;color:#6c82a0;font-size:11px;line-height:1.7;margin:10px 2px}
+#pages .actions button{min-width:45%;font-size:13px}
+@media(max-width:370px){.camera-box{max-height:54dvh}.cam-mode{font-size:11px;padding:9px 4px}.capture-shutter{width:70px;height:70px}}
+
+/* Q DOC TOOLS V4 visual refresh — preserves existing scanning engine */
+:root{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Tahoma,sans-serif;color:#18365b;background:#dceafc}
+body{background:linear-gradient(145deg,#d8eaff,#f5f9ff)}
+.app{background:#f5f9ff;box-shadow:0 12px 55px #153f8530}
+.top{background:linear-gradient(125deg,#0853c6 0%,#0b88ed 72%,#5dbefa 100%);position:relative;overflow:hidden;padding:22px 20px 23px;box-shadow:0 7px 22px #1375ce2b}
+.top:after{content:"";position:absolute;right:-80px;bottom:-90px;width:240px;height:180px;border-radius:50%;border:28px solid #ffffff20;pointer-events:none}
+.brand{position:relative;z-index:1;font-size:25px;letter-spacing:-.45px;gap:13px}
+.brand-logo{width:61px;height:61px;object-fit:cover;border-radius:17px;box-shadow:0 4px 14px #06295955;border:2px solid #ffffffab}
+.sub{position:relative;z-index:1;font-size:13px;line-height:1.5;margin-top:9px}
+.main{padding:15px 14px 24px}
+.grid{gap:11px}
+.tile{min-height:118px;border-radius:21px;padding:18px 8px;background:linear-gradient(155deg,#fff,#eef6ff);box-shadow:0 5px 16px #1d5ca618;border:1px solid #e0ebfa;transition:transform .13s ease,box-shadow .13s ease}
+.tile:active{transform:scale(.975)}
+.tile:first-child{background:linear-gradient(145deg,#168cff,#065cd5);color:white;border:1px solid #7bbfff;box-shadow:0 7px 20px #1676e85c}
+.tile:first-child small{color:#e0f0ff}
+.tile .emoji{font-size:36px;margin-bottom:9px}
+.tile b{font-size:15px;line-height:1.4}
+.panel{border:1px solid #e4eefa;box-shadow:0 5px 19px #17509a12;border-radius:20px}
+.primary{background:linear-gradient(150deg,#138cff,#065fda);box-shadow:0 3px 11px #126de32b}
+.secondary{background:#e9f3ff;color:#075bc9}
+button:focus-visible{outline:3px solid #16c8df;outline-offset:3px}
+.footer{line-height:1.7;padding-bottom:30px}
+.camera-heading{padding:7px 5px 12px}
+.camera-box{border:4px solid white;box-shadow:0 5px 19px #174e902e}
+@media(max-width:380px){.brand{font-size:22px}.brand-logo{width:54px;height:54px}.tile{min-height:108px;padding:13px 6px}}
+</style>
+</head>
+<body><div class="app"><header class="top"><div class="brand"><img class="brand-logo" src="icon-192.png" alt="Q DOC TOOLS"><span>Q DOC<br>TOOLS</span></div><p class="sub">สแกน • ปรับภาพ • จัดการเอกสาร • JPG / PDF</p></header>
+<main class="main">
+<section id="home"><div class="grid"><button class="tile" id="cameraBtn"><span class="emoji">📷</span><b>สแกนเอกสาร</b><small>ถ่ายด้วยกล้อง</small></button><button class="tile" id="galleryBtn"><span class="emoji">🏞️</span><b>เลือกรูปจากเครื่อง</b><small>นำรูปมาแปลง</small></button><button class="tile" id="pdfHome"><span class="emoji">📕</span><b>บันทึกเป็น PDF</b><small>รวมเอกสารหลายหน้า</small></button><button class="tile" id="imageHome"><span class="emoji">🖼️</span><b>บันทึกเป็นรูปภาพ</b><small>JPG คุณภาพสูง</small></button><button class="tile" id="moreHome"><span class="emoji">📑</span><b>สแกนหลายหน้า</b><small>ถ่ายเพิ่มต่อเนื่อง</small></button><button class="tile" id="filesHome"><span class="emoji">📂</span><b>ไฟล์ของฉัน</b><small>ดูภาพที่สแกนในครั้งนี้</small></button></div><div class="panel"><span class="badge">✓ ใช้งานบน iPhone ได้</span><p class="hint" style="margin-bottom:0">✓ ตรวจหาขอบกระดาษอัตโนมัติ<br>✓ ดึงมุมเอกสารให้ตรงเหมือนถ่ายจากด้านบน<br>✓ ปรับมุมเองด้วยการลากจุดสีเขียว<br>✓ รวมหลายหน้าเป็น PDF ไฟล์เดียว</p></div></section>
+<section id="camera" class="hide camera-screen">
+<div class="camera-heading"><button class="back-btn" id="closeCamera" aria-label="ย้อนกลับ">‹</button><div><strong>สแกนเอกสาร</strong><small>Q DOC TOOLS • กล้องแนวตั้ง</small></div><span class="live-chip" id="liveChip">● LIVE</span></div>
+<div class="camera-box" id="cameraBox"><video id="liveVideo" autoplay playsinline muted></video><canvas id="liveOverlay"></canvas><div class="live-topbar"><span>⚡ อัตโนมัติ</span><span id="cameraCount">0 หน้า</span></div><div class="camera-bottom-status" id="liveStatus">กำลังเปิดกล้อง…</div></div>
+<div class="mode-row"><button class="cam-mode active" data-kind="document">▤ เอกสาร</button><button class="cam-mode" data-kind="card">▣ บัตร</button><button class="cam-mode" data-kind="multi">▤ หลายหน้า</button><button class="cam-mode" data-kind="photo">▧ รูปภาพ</button></div>
+<div class="capture-row"><button class="capture-side" id="cameraPages" aria-label="ดูหน้าที่สแกน"><span class="capture-icon">▤</span><b id="cameraPageCount">0 หน้า</b></button><button class="capture-shutter" id="takePhoto" aria-label="ถ่ายเอกสาร"><span>📷</span></button><button class="capture-side" id="cameraGallery" aria-label="เลือกรูปจากเครื่อง"><span class="capture-icon">▧</span><b>เลือกรูป</b></button></div>
+<p class="camera-help">กรอบ <b style="color:#e1a000">สีเหลือง</b> กำลังค้นหา • กรอบ <b style="color:#0caa55">สีเขียว</b> พบขอบเอกสาร<br>หลังถ่ายสามารถลากแก้ทั้ง 4 มุมได้</p>
+</section>
+<section id="editor" class="hide"><div class="panel" style="margin-top:0"><h2>ปรับมุมเอกสาร <span class="muted" id="pageLabel"></span></h2><div class="preview-wrap" id="previewWrap"><canvas id="preview"></canvas></div><p class="hint">ลากวงกลมสีเขียว 4 มุมให้ตรงขอบกระดาษ แล้วกด “ตัดและปรับให้ตรง”</p><div class="actions"><button class="secondary" id="autoBtn">✨ จับขอบอัตโนมัติ</button><button class="primary" id="cropBtn">✓ ตัดและปรับให้ตรง</button></div><div class="status" id="detectStatus"></div></div></section>
+<section id="result" class="hide"><div class="panel" style="margin-top:0"><h2>ตัวอย่างเอกสารที่สแกน</h2><div class="preview-wrap" style="background:#dde8f8;touch-action:auto"><canvas id="resultCanvas"></canvas></div><div class="modes" id="modes"><button class="mode active" data-mode="color">สี</button><button class="mode" data-mode="gray">ขาวดำ</button><button class="mode" data-mode="document">เอกสารคมชัด</button></div><div class="actions"><button class="secondary" id="editCorners">↶ ปรับมุมใหม่</button><button class="primary" id="keepPage">✓ เก็บหน้านี้</button></div></div></section>
+<section id="pages" class="panel hide"><h2>📑 เอกสารของฉัน <span class="muted" id="count">0 หน้า</span></h2><div class="thumbs" id="thumbs"></div><p class="hint">แตะรูปเล็กเพื่อดูหน้า • PDF จะเรียงหน้าตามลำดับที่สแกน</p><div class="actions"><button class="secondary" id="addPage">＋ เพิ่มหน้า</button><button class="primary" id="savePDF">📕 บันทึก PDF</button><button class="secondary" id="sharePDF">📤 แชร์ไฟล์ PDF</button><button class="secondary" id="saveJPG">🖼️ ดาวน์โหลด JPG</button><button class="secondary" id="sharePhoto">📲 แชร์รูปที่เลือก</button><button class="primary" id="shareAllPhotos">🌈 แชร์หลายรูปเข้าแกลเลอรี</button></div><div class="actions" style="margin-top:8px"><button class="danger" id="deletePage">ลบหน้าที่เลือก</button><button class="secondary" id="newScan">กลับหน้าแรก</button></div><div class="status" id="saveStatus"></div></section>
+<input id="cameraInput" type="file" accept="image/*" capture="environment" class="hide"><input id="galleryInput" type="file" accept="image/*" multiple class="hide">
+<footer class="footer">Q DOC TOOLS • เอกสารประมวลผลในเครื่องของคุณ<br>ฟังก์ชันตรวจขอบอัตโนมัติต้องใช้อินเทอร์เน็ตเพื่อโหลดตัวประมวลผลครั้งแรก</footer></main></div>
+<script src="https://docs.opencv.org/4.x/opencv.js" async onload="cvScriptLoaded()" onerror="cvLoadFailed()"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.2/jspdf.umd.min.js"></script>
+<script>
+'use strict';
+const $=id=>document.getElementById(id),pages=[],MAX_SIZE=1800;let source=null,points=null,cropped=null,processed=null,selected=0,mode='color',drag=-1,cvReady=false;let liveStream=null,liveTimer=null,liveQuad=null,liveRunning=false,liveRaf=null,liveMisses=0,liveFrameCanvas=null,liveFrameCtx=null,liveLastScan=0,liveScanBusy=false,liveEpoch=0;
+function cvScriptLoaded(){const check=()=>{if(window.cv&&typeof cv.Mat==='function'){cvReady=true;return;}if(window.cv&&typeof cv.then==='function'){cv.then(x=>{window.cv=x;cvReady=true}).catch(()=>{});return;}setTimeout(check,400)};check()}
+function cvLoadFailed(){cvReady=false}
+function show(view){['home','camera','editor','result'].forEach(id=>$(id).classList.toggle('hide',id!==view));$('pages').classList.toggle('hide',view!=='pages');window.scrollTo({top:0,behavior:'smooth'})}
+function status(msg){$('detectStatus').textContent=msg}
+function loadImage(file){return new Promise((resolve,reject)=>{const url=URL.createObjectURL(file),im=new Image();im.onload=()=>{const scale=Math.min(1,MAX_SIZE/Math.max(im.naturalWidth,im.naturalHeight));const c=document.createElement('canvas');c.width=Math.round(im.naturalWidth*scale);c.height=Math.round(im.naturalHeight*scale);c.getContext('2d').drawImage(im,0,0,c.width,c.height);URL.revokeObjectURL(url);resolve(c)};im.onerror=()=>{URL.revokeObjectURL(url);reject(new Error('เปิดรูปภาพไม่ได้'))};im.src=url})}
+function startFromCanvas(canvas,foundPoints){source=canvas;points=foundPoints||initialPoints();cropped=null;drawOverlay();show('editor');status(foundPoints?'✓ พบขอบจากกล้องแล้ว ตรวจสอบและปรับมุมก่อนบันทึก':'กำลังตรวจขอบเอกสารอีกครั้ง…');setTimeout(detectCorners,80)}
+function initialPoints(){const w=source.width,h=source.height;return [[w*.07,h*.07],[w*.93,h*.07],[w*.93,h*.93],[w*.07,h*.93]]}
+async function startFile(file){if(!file)return;stopLive();try{startFromCanvas(await loadImage(file),null)}catch(e){alert(e.message)}}
+function drawOverlay(){if(!source)return;const c=$('preview'),ctx=c.getContext('2d');c.width=source.width;c.height=source.height;ctx.drawImage(source,0,0);ctx.strokeStyle='#27ec5e';ctx.lineWidth=Math.max(3,source.width/200);ctx.beginPath();points.forEach((p,i)=>i?ctx.lineTo(...p):ctx.moveTo(...p));ctx.closePath();ctx.stroke();points.forEach(p=>{ctx.beginPath();ctx.arc(...p,Math.max(10,source.width/55),0,Math.PI*2);ctx.fillStyle='#fff';ctx.fill();ctx.stroke()})}
+function detectCorners(){if(!source)return;if(!cvReady){status('ตัวตรวจจับอัตโนมัติยังไม่พร้อม คุณสามารถลากจุดสีเขียวเพื่อปรับมุมด้วยตัวเองได้');return}let src,gray,blur,edges,contours,hierarchy,kernel;try{src=cv.imread(source);gray=new cv.Mat();blur=new cv.Mat();edges=new cv.Mat();cv.cvtColor(src,gray,cv.COLOR_RGBA2GRAY);cv.GaussianBlur(gray,blur,new cv.Size(5,5),0);cv.Canny(blur,edges,60,170);kernel=cv.Mat.ones(3,3,cv.CV_8U);cv.dilate(edges,edges,kernel);contours=new cv.MatVector();hierarchy=new cv.Mat();cv.findContours(edges,contours,hierarchy,cv.RETR_LIST,cv.CHAIN_APPROX_SIMPLE);let best=null,bestArea=0;const minArea=source.width*source.height*.09;for(let i=0;i<contours.size();i++){const ct=contours.get(i);const perimeter=cv.arcLength(ct,true),approx=new cv.Mat();cv.approxPolyDP(ct,approx,perimeter*.025,true);const area=Math.abs(cv.contourArea(approx));if(approx.rows===4&&area>bestArea&&area>minArea&&cv.isContourConvex(approx)){const arr=[];for(let j=0;j<4;j++)arr.push([approx.data32S[2*j],approx.data32S[2*j+1]]);best=orderPoints(arr);bestArea=area}approx.delete();ct.delete()}
+if(best){points=best;drawOverlay();status('✓ พบขอบกระดาษแล้ว หากยังไม่ตรงสามารถลากจุดสีเขียวได้')}else status('ยังไม่พบขอบกระดาษชัดเจน กรุณาลากจุดสีเขียวให้ตรงกับมุมกระดาษ')}
+catch(e){status('ไม่สามารถตรวจจับขอบอัตโนมัติได้ กรุณาปรับมุมด้วยนิ้ว')}finally{[src,gray,blur,edges,contours,hierarchy,kernel].forEach(m=>{if(m)try{m.delete()}catch(e){}})}}
+
+function stopLive(){
+ liveRunning=false;liveEpoch++;
+ if(liveTimer){clearTimeout(liveTimer);liveTimer=null}
+ if(liveRaf){cancelAnimationFrame(liveRaf);liveRaf=null}
+ if(liveStream){liveStream.getTracks().forEach(t=>t.stop());liveStream=null}
+ $('liveVideo').srcObject=null;liveQuad=null;liveMisses=0;liveFrameCanvas=null;liveFrameCtx=null;liveScanBusy=false;
+}
+async function openLive(){
+ if(!navigator.mediaDevices||!navigator.mediaDevices.getUserMedia){$('cameraInput').click();return}
+ stopLive();show('camera');$('liveStatus').textContent='กำลังขออนุญาตเปิดกล้อง…';$('liveStatus').classList.remove('found');$('cameraPageCount').textContent=pages.length+' หน้า';$('cameraCount').textContent=pages.length+' หน้า';
+ try{
+  const stream=await navigator.mediaDevices.getUserMedia({audio:false,video:{facingMode:{ideal:'environment'},width:{ideal:1280},height:{ideal:1920}}});
+  liveStream=stream;const v=$('liveVideo');v.srcObject=stream;await v.play();liveRunning=true;liveQuad=null;liveLastScan=0;liveMisses=0;
+  liveFrameCanvas=document.createElement('canvas');liveFrameCtx=liveFrameCanvas.getContext('2d',{willReadFrequently:true});
+  liveScan();
+ }catch(err){stopLive();alert('เปิดกล้องสดไม่ได้ กรุณาอนุญาตสิทธิ์กล้อง หรือใช้กล้องถ่ายภาพแบบเดิม');show('home');$('cameraInput').click()}
+}
+function findLiveQuad(c){
+ if(!cvReady)return null;
+ let src,gray,blur,edge,contours,hierarchy,kernel;
+ try{
+  src=cv.imread(c);gray=new cv.Mat();blur=new cv.Mat();edge=new cv.Mat();contours=new cv.MatVector();hierarchy=new cv.Mat();
+  cv.cvtColor(src,gray,cv.COLOR_RGBA2GRAY);
+  cv.GaussianBlur(gray,blur,new cv.Size(5,5),0);
+  cv.Canny(blur,edge,45,135);
+  kernel=cv.Mat.ones(3,3,cv.CV_8U);cv.morphologyEx(edge,edge,cv.MORPH_CLOSE,kernel);
+  cv.findContours(edge,contours,hierarchy,cv.RETR_LIST,cv.CHAIN_APPROX_SIMPLE);
+  let best=null,bestScore=0;const imageArea=c.width*c.height;
+  for(let i=0;i<contours.size();i++){
+   const ct=contours.get(i),ap=new cv.Mat();
+   try{
+    const perimeter=cv.arcLength(ct,true);
+    cv.approxPolyDP(ct,ap,perimeter*.024,true);
+    const area=Math.abs(cv.contourArea(ap));
+    if(ap.rows!==4||area<imageArea*.075||!cv.isContourConvex(ap))continue;
+    const arr=[];for(let j=0;j<4;j++)arr.push([ap.data32S[2*j],ap.data32S[2*j+1]]);
+    const q=orderPoints(arr);
+    if(new Set(q.map(v=>v.join(','))).size!==4)continue;
+    const score=area/imageArea + (area>imageArea*.92?-.4:0);
+    if(score>bestScore){best=q;bestScore=score}
+   }finally{ap.delete();ct.delete()}
+  }
+  return best;
+ }catch(e){return null}finally{[src,gray,blur,edge,contours,hierarchy,kernel].forEach(m=>{if(m)try{m.delete()}catch(e){}})}
+}
+function paintLive(){
+ if(!liveRunning)return;
+ const v=$('liveVideo'),overlay=$('liveOverlay');if(!v.videoWidth||!v.videoHeight)return;
+ const cw=overlay.clientWidth,ch=overlay.clientHeight;if(!cw||!ch)return;
+ const density=Math.min(window.devicePixelRatio||1,2),pxW=Math.round(cw*density),pxH=Math.round(ch*density);
+ if(overlay.width!==pxW||overlay.height!==pxH){overlay.width=pxW;overlay.height=pxH}
+ const g=overlay.getContext('2d');g.setTransform(density,0,0,density,0,0);g.clearRect(0,0,cw,ch);
+ // object-fit:contain displays the live camera with letterbox padding; align polygon exactly to visible video
+ const scale=Math.min(cw/v.videoWidth,ch/v.videoHeight),ox=(cw-v.videoWidth*scale)/2,oy=(ch-v.videoHeight*scale)/2;
+ const w=v.videoWidth,h=v.videoHeight;
+ const raw=liveQuad||[[w*.09,h*.09],[w*.91,h*.09],[w*.91,h*.91],[w*.09,h*.91]];
+ const p=raw.map(q=>[ox+q[0]*scale,oy+q[1]*scale]);const found=!!liveQuad;
+ g.strokeStyle=found?'#22f66d':'#ffdb35';g.lineWidth=3;g.lineJoin='round';g.shadowColor=found?'#00ff7499':'#ffce4077';g.shadowBlur=10;
+ g.beginPath();p.forEach((q,i)=>i?g.lineTo(...q):g.moveTo(...q));g.closePath();g.stroke();g.shadowBlur=0;
+ for(const q of p){g.beginPath();g.arc(q[0],q[1],5.5,0,Math.PI*2);g.fillStyle='#fff';g.fill();g.stroke()}
+ const status=$('liveStatus');status.classList.toggle('found',found);
+ const message=found?'✓ ตรวจพบขอบเอกสารแล้ว — กดถ่ายได้เลย':cvReady?'กำลังติดตามขอบเอกสาร — เล็งให้เห็นครบทั้ง 4 มุม':'กำลังโหลดตัวตรวจจับขอบ — กรอบเหลืองช่วยเล็ง';
+ if(status.textContent!==message)status.textContent=message;
+}
+function liveScan(timestamp){
+ if(!liveRunning)return;
+ // วาดกรอบทุกเฟรมเพื่อให้แสดงภาพลื่น ส่วนการตรวจขอบทำที่ความละเอียดต่ำกว่าเพื่อรักษาแบตเตอรี่
+ paintLive();
+ if(!liveScanBusy && timestamp-liveLastScan>=260){
+  liveLastScan=timestamp;liveScanBusy=true;
+  const epoch=liveEpoch;
+  try{
+   const v=$('liveVideo');
+   if(cvReady&&v.readyState>=2&&v.videoWidth&&liveFrameCtx){
+    const scale=Math.min(1,480/Math.max(v.videoWidth,v.videoHeight));
+    const c=liveFrameCanvas;c.width=Math.max(2,Math.round(v.videoWidth*scale));c.height=Math.max(2,Math.round(v.videoHeight*scale));
+    liveFrameCtx.drawImage(v,0,0,c.width,c.height);
+    const quad=findLiveQuad(c);
+    if(epoch===liveEpoch){
+     if(quad){
+      const target=quad.map(q=>[q[0]/scale,q[1]/scale]);
+      // Smooth tracking: ลดอาการกรอบกระตุก แต่ยังเคลื่อนตามกระดาษต่อเนื่อง
+      if(liveQuad){
+       const delta=target.reduce((acc,q,i)=>acc+Math.hypot(q[0]-liveQuad[i][0],q[1]-liveQuad[i][1]),0)/4;
+       const alpha=delta>Math.max(v.videoWidth,v.videoHeight)*.14?.75:.43;
+       liveQuad=target.map((q,i)=>[liveQuad[i][0]*(1-alpha)+q[0]*alpha,liveQuad[i][1]*(1-alpha)+q[1]*alpha]);
+      }else liveQuad=target;
+      liveMisses=0;
+     }else if(++liveMisses>=4)liveQuad=null; // อย่าให้กรอบกระพริบทันทีเมื่อมือสั่น
+    }
+   }
+  }catch(e){}finally{liveScanBusy=false}
+ }
+ liveRaf=requestAnimationFrame(liveScan);
+}
+$('closeCamera').onclick=()=>{stopLive();show(pages.length?'pages':'home')};
+$('cameraGallery').onclick=()=>{$('galleryInput').click()};
+$('cameraPages').onclick=()=>{if(!pages.length){alert('ยังไม่มีรูปที่สแกน');return}stopLive();renderPages();show('pages')};
+document.querySelectorAll('.cam-mode').forEach(btn=>btn.onclick=()=>{document.querySelectorAll('.cam-mode').forEach(b=>b.classList.remove('active'));btn.classList.add('active');if(btn.dataset.kind==='card'||btn.dataset.kind==='photo')$('liveStatus').textContent='เล็งเอกสารในกรอบแล้วกดถ่าย • สามารถปรับมุมได้หลังถ่าย';});
+$('takePhoto').onclick=()=>{const v=$('liveVideo');if(!v.videoWidth){alert('กล้องยังไม่พร้อม');return}const scale=Math.min(1,MAX_SIZE/Math.max(v.videoWidth,v.videoHeight));const c=document.createElement('canvas');c.width=Math.round(v.videoWidth*scale);c.height=Math.round(v.videoHeight*scale);c.getContext('2d').drawImage(v,0,0,c.width,c.height);const p=liveQuad?liveQuad.map(q=>q.map(n=>n*scale)):null;stopLive();startFromCanvas(c,p)};
+document.addEventListener('visibilitychange',()=>{if(document.hidden&&liveRunning){stopLive();if(!$('camera').classList.contains('hide'))show('home')}});
+
+function orderPoints(p){const sum=a=>a[0]+a[1],diff=a=>a[0]-a[1];return [p.reduce((a,b)=>sum(a)<sum(b)?a:b),p.reduce((a,b)=>diff(a)>diff(b)?a:b),p.reduce((a,b)=>sum(a)>sum(b)?a:b),p.reduce((a,b)=>diff(a)<diff(b)?a:b)]}
+function pos(e){const r=$('preview').getBoundingClientRect();return [(e.clientX-r.left)*source.width/r.width,(e.clientY-r.top)*source.height/r.height]}
+$('preview').addEventListener('pointerdown',e=>{if(!points)return;const p=pos(e),d=points.map(q=>Math.hypot(q[0]-p[0],q[1]-p[1])),i=d.indexOf(Math.min(...d));if(d[i]<source.width*.13){drag=i;$('preview').setPointerCapture(e.pointerId)}});
+$('preview').addEventListener('pointermove',e=>{if(drag<0)return;const p=pos(e);points[drag]=[Math.max(0,Math.min(source.width,p[0])),Math.max(0,Math.min(source.height,p[1]))];drawOverlay()});['pointerup','pointercancel'].forEach(n=>$('preview').addEventListener(n,()=>drag=-1));
+const dist=(a,b)=>Math.hypot(a[0]-b[0],a[1]-b[1]);
+function warpPerspective(){const p=points,w=Math.min(2300,Math.max(120,Math.round(Math.max(dist(p[0],p[1]),dist(p[3],p[2]))))),h=Math.min(3000,Math.max(120,Math.round(Math.max(dist(p[0],p[3]),dist(p[1],p[2])))));const out=document.createElement('canvas');out.width=w;out.height=h;let ctx=out.getContext('2d');if(cvReady){let a,b,src,dst,M;try{a=cv.imread(source);b=new cv.Mat();src=cv.matFromArray(4,1,cv.CV_32FC2,p.flat());dst=cv.matFromArray(4,1,cv.CV_32FC2,[0,0,w-1,0,w-1,h-1,0,h-1]);M=cv.getPerspectiveTransform(src,dst);cv.warpPerspective(a,b,M,new cv.Size(w,h),cv.INTER_LINEAR,cv.BORDER_CONSTANT,new cv.Scalar(255,255,255,255));cv.imshow(out,b)}finally{[a,b,src,dst,M].forEach(m=>{if(m)try{m.delete()}catch(e){}})} }else{ // Canvas triangular affine approximation when OpenCV unavailable
+const tris=[[[0,0],[w,0],[w,h]],[ [0,0],[w,h],[0,h] ]];const srcTris=[[p[0],p[1],p[2]],[p[0],p[2],p[3]]];for(let i=0;i<2;i++)drawTriangle(ctx,source,srcTris[i],tris[i]);}return out}
+function drawTriangle(ctx,img,s,d){const [a,b,c]=s,[A,B,C]=d,det=(b[0]-a[0])*(c[1]-a[1])-(c[0]-a[0])*(b[1]-a[1]);if(Math.abs(det)<1)return;const x=((B[0]-A[0])*(c[1]-a[1])-(C[0]-A[0])*(b[1]-a[1]))/det,y=((C[0]-A[0])*(b[0]-a[0])-(B[0]-A[0])*(c[0]-a[0]))/det,u=((B[1]-A[1])*(c[1]-a[1])-(C[1]-A[1])*(b[1]-a[1]))/det,v=((C[1]-A[1])*(b[0]-a[0])-(B[1]-A[1])*(c[0]-a[0]))/det;ctx.save();ctx.beginPath();ctx.moveTo(...A);ctx.lineTo(...B);ctx.lineTo(...C);ctx.closePath();ctx.clip();ctx.transform(x,u,y,v,A[0]-x*a[0]-y*a[1],A[1]-u*a[0]-v*a[1]);ctx.drawImage(img,0,0);ctx.restore()}
+function renderMode(){if(!cropped)return;const c=$('resultCanvas');c.width=cropped.width;c.height=cropped.height;const ctx=c.getContext('2d',{willReadFrequently:true});ctx.drawImage(cropped,0,0);if(mode!=='color'){const img=ctx.getImageData(0,0,c.width,c.height),d=img.data;for(let i=0;i<d.length;i+=4){let v=.299*d[i]+.587*d[i+1]+.114*d[i+2];if(mode==='document'){v=v>180?255:v<105?0:Math.round((v-105)/75*255)}d[i]=d[i+1]=d[i+2]=v}ctx.putImageData(img,0,0)}processed=c;document.querySelectorAll('.mode').forEach(b=>b.classList.toggle('active',b.dataset.mode===mode))}
+$('cropBtn').onclick=()=>{try{cropped=warpPerspective();mode='color';renderMode();show('result')}catch(e){alert('ปรับมุมไม่สำเร็จ กรุณาลองใหม่')}};
+$('autoBtn').onclick=detectCorners;$('editCorners').onclick=()=>show('editor');document.querySelectorAll('.mode').forEach(b=>b.onclick=()=>{mode=b.dataset.mode;renderMode()});
+$('keepPage').onclick=()=>{if(!processed)return;pages.push(processed.toDataURL('image/jpeg',.92));selected=pages.length-1;source=null;renderPages();show('pages')};
+function renderPages(){$('count').textContent=pages.length+' หน้า';const root=$('thumbs');root.innerHTML='';pages.forEach((url,i)=>{const btn=document.createElement('button');btn.className='thumb'+(selected===i?' active':'');const im=document.createElement('img');im.src=url;im.alt='หน้าที่ '+(i+1);const tag=document.createElement('span');tag.textContent=i+1;btn.append(im,tag);btn.onclick=()=>{selected=i;renderPages()};root.append(btn)});$('saveStatus').textContent=pages.length?'สแกนแล้ว ' + pages.length + ' รูป • แชร์รูปทั้งหมดเพื่อเก็บในแอปรูปภาพ หรือแชร์ PDF ไป LINE และแอปไฟล์':'ยังไม่มีเอกสาร'}
+$('deletePage').onclick=()=>{if(!pages.length)return;if(!confirm('ลบหน้าที่ '+(selected+1)+' ออกจากชุดเอกสารนี้?'))return;pages.splice(selected,1);selected=Math.max(0,Math.min(selected,pages.length-1));renderPages();if(!pages.length)show('home')};
+function downloadBlob(blob,name){const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=name;document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),30000)}
+function dataBlob(data){const [info,b64]=data.split(','),bin=atob(b64),out=new Uint8Array(bin.length);for(let i=0;i<bin.length;i++)out[i]=bin.charCodeAt(i);return new Blob([out],{type:'image/jpeg'})}
+function saveJpg(){if(!pages.length){alert('กรุณาสแกนเอกสารก่อน');return}downloadBlob(dataBlob(pages[selected]),`Q-Scan-page-${selected+1}.jpg`);$('saveStatus').textContent='บันทึกรูปหน้าที่ '+(selected+1)+' แล้ว'}
+async function buildPdfBlob(){
+ if(!pages.length)throw new Error('กรุณาสแกนเอกสารก่อน');
+ if(!window.jspdf)throw new Error('ยังโหลดส่วนสร้าง PDF ไม่สำเร็จ กรุณาเชื่อมต่ออินเทอร์เน็ตแล้วลองใหม่');
+ const doc=new jspdf.jsPDF({unit:'mm',format:'a4'});
+ for(let idx=0;idx<pages.length;idx++){
+  const im=await new Promise((resolve,reject)=>{const i=new Image();i.onload=()=>resolve(i);i.onerror=reject;i.src=pages[idx]});
+  if(idx)doc.addPage();
+  const pw=210,ph=297,pad=8,scale=Math.min((pw-2*pad)/im.width,(ph-2*pad)/im.height),w=im.width*scale,h=im.height*scale;
+  doc.addImage(pages[idx],'JPEG',(pw-w)/2,(ph-h)/2,w,h,undefined,'FAST');
+ }
+ return doc.output('blob');
+}
+async function savePdf(){try{const blob=await buildPdfBlob();downloadBlob(blob,'Q-DOC-TOOLS.pdf');$('saveStatus').textContent='ดาวน์โหลด PDF รวม '+pages.length+' หน้าแล้ว'}catch(e){alert(e.message||'สร้าง PDF ไม่สำเร็จ')}}
+async function sharePdf(){
+ const btn=$('sharePDF');btn.disabled=true;
+ try{
+  const file=new File([await buildPdfBlob()],'Q-DOC-TOOLS.pdf',{type:'application/pdf'});
+  if(navigator.share&&navigator.canShare&&navigator.canShare({files:[file]})){
+   await navigator.share({files:[file],title:'Q DOC TOOLS PDF'});
+   $('saveStatus').textContent='เปิดเมนูแชร์ PDF แล้ว เลือก LINE, AirDrop หรือ “บันทึกไปยังไฟล์” ได้';
+  }else{
+   downloadBlob(file,file.name);
+   $('saveStatus').textContent='ดาวน์โหลด PDF แล้ว เปิดไฟล์เพื่อแชร์หรือบันทึกลงแอปไฟล์';
+  }
+ }catch(e){if(e.name!=='AbortError')alert(e.message||'แชร์ PDF ไม่สำเร็จ')}
+ finally{btn.disabled=false}
+}
+
+async function shareJpg(){
+ if(!pages.length){alert('กรุณาสแกนเอกสารก่อน');return}
+ const file=new File([dataBlob(pages[selected])],`Q-Scan-page-${selected+1}.jpg`,{type:'image/jpeg'});
+ try{if(navigator.share&&navigator.canShare&&navigator.canShare({files:[file]})){await navigator.share({files:[file],title:'Q DOC TOOLS'});$('saveStatus').textContent='เลือก “บันทึกรูปภาพ” ในเมนูแชร์ เพื่อเก็บลงแอปรูปภาพ';return}}
+ catch(e){if(e.name==='AbortError')return}
+ downloadBlob(file,file.name);$('saveStatus').textContent='ดาวน์โหลดภาพแล้ว เปิดภาพแล้วเลือก แชร์ → บันทึกรูปภาพ หากต้องการเพิ่มเข้าอัลบั้ม';
+}
+async function shareAllPhotos(){
+ if(!pages.length){alert('กรุณาสแกนเอกสารก่อน');return}
+ const btn=$('shareAllPhotos');btn.disabled=true;
+ try{
+  // แต่ละหน้าจะเป็นไฟล์ JPG แยกกัน ไม่รวมเป็นภาพเดียว
+  const files=pages.map((data,i)=>new File([dataBlob(data)],`Q-Scan-page-${String(i+1).padStart(2,'0')}.jpg`,{type:'image/jpeg'}));
+  if(navigator.share&&navigator.canShare&&navigator.canShare({files})){
+   await navigator.share({files,title:'Q DOC TOOLS - '+files.length+' รูป'});
+   $('saveStatus').textContent='เปิดเมนูแชร์ '+files.length+' รูปแล้ว หากต้องการเก็บในแอปรูปภาพให้เลือก “บันทึก '+files.length+' รูปภาพ” (ชื่อเมนูอาจต่างกัน)';
+  }else{
+   $('saveStatus').textContent='เบราว์เซอร์นี้ไม่รองรับแชร์หลายไฟล์พร้อมกัน ลองเปิดผ่าน Safari บน iPhone หรือใช้ปุ่มบันทึก PDF';
+   alert('อุปกรณ์หรือเบราว์เซอร์นี้ไม่รองรับการแชร์หลายรูปพร้อมกัน กรุณาเปิดผ่าน Safari บน iPhone หรือเลือกบันทึก PDF');
+  }
+ }catch(e){
+  if(e.name!=='AbortError'){
+   $('saveStatus').textContent='ไม่สามารถแชร์รูปทั้งหมดได้ อาจมีรูปมากเกินไปหรือหน่วยความจำไม่พอ ลองแชร์ทีละรูปหรือบันทึกเป็น PDF';
+   alert('แชร์หลายรูปไม่สำเร็จ ลองลดจำนวนรูปแล้วแชร์ใหม่ หรือเลือกบันทึก PDF');
+  }
+ }finally{btn.disabled=false}
+}
+$('sharePDF').onclick=sharePdf;
+$('sharePhoto').onclick=shareJpg;
+$('shareAllPhotos').onclick=shareAllPhotos;
+
+$('savePDF').onclick=savePdf;$('saveJPG').onclick=saveJpg;$('cameraBtn').onclick=openLive;$('galleryBtn').onclick=()=>$('galleryInput').click();$('addPage').onclick=openLive;$('moreHome').onclick=openLive;$('pdfHome').onclick=()=>{if(!pages.length)alert('เริ่มจากถ่ายภาพเอกสารก่อน แล้วเลือกบันทึกเป็น PDF');else savePdf()};$('imageHome').onclick=()=>{if(!pages.length)alert('เริ่มจากถ่ายภาพเอกสารก่อน แล้วเลือกบันทึกเป็น JPG');else saveJpg()};$('filesHome').onclick=()=>{if(!pages.length)alert('ยังไม่มีภาพที่สแกนในครั้งนี้');else{renderPages();show('pages')}};$('newScan').onclick=()=>show('home');
+$('cameraInput').onchange=async e=>{const file=e.target.files[0];e.target.value='';await startFile(file)};
+$('galleryInput').onchange=async e=>{const files=[...e.target.files];e.target.value='';if(!files.length)return;if(files.length>1)alert('เลือกหลายรูปได้ แต่ต้องปรับขอบทีละรูป กรุณาเริ่มจากรูปแรกก่อน');await startFile(files[0])};
+</script></body></html>
